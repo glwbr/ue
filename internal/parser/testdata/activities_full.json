@@ -1,0 +1,135 @@
+{
+  "data": {
+    "activities": {
+      "cityID": 795,
+      "past": {
+        "activities": [
+          {
+            "cardURL": "https://riders.uber.com/trips/office-trip-001",
+            "description": "R$15.50",
+            "imageURL": {
+              "light": "https://static-maps.uber.com/map?width=540&height=200&marker=lat%3A41.4089%24lng%3A-75.6624%24icon%3Ahttps%3A%2F%2Fd1a3f4spazzrp4.cloudfront.net%2Fmaps%2Fhelix%2Fpickup.png&marker=lat%3A41.4120%24lng%3A-75.6580%24icon%3Ahttps%3A%2F%2Fd1a3f4spazzrp4.cloudfront.net%2Fmaps%2Fhelix%2Fdestination%402x.png&polyline=color%3A0xFF000000%24width%3A4",
+              "dark": "https://static-maps.uber.com/map?width=540&height=200&style=santurce-night&marker=lat%3A41.4089%24lng%3A-75.6624%24icon%3Ahttps%3A%2F%2Fd1a3f4spazzrp4.cloudfront.net%2Fmaps%2Fhelix%2Fpickup%402x.png&marker=lat%3A41.4120%24lng%3A-75.6580%24icon%3Ahttps%3A%2F%2Fd1a3f4spazzrp4.cloudfront.net%2Fmaps%2Fhelix%2Fdestination%402x.png&polyline=color%3A0xFFFFFFFF%24width%3A4",
+              "__typename": "RVWebCommonColorModeImage"
+            },
+            "subtitle": "Jan 20 • 7:50 PM",
+            "title": "1725 Slough Avenue, Dunder Mifflin",
+            "uuid": "6b8dc458-d2ea-42a1-97e9-7db671798503",
+            "__typename": "RVWebCommonActivity"
+          },
+          {
+            "cardURL": "https://riders.uber.com/trips/office-trip-002",
+            "description": "R$10.75",
+            "imageURL": {
+              "light": "https://d1a3f4spazzrp4.cloudfront.net/car-types/haloProductImages/v1.1/Motorcycle.png",
+              "dark": "https://d1a3f4spazzrp4.cloudfront.net/car-types/haloProductImages/v1.1/Motorcycle.png",
+              "__typename": "RVWebCommonColorModeImage"
+            },
+            "subtitle": "Jan 19 • 4:33 PM",
+            "title": "Michael's Condo",
+            "uuid": "3bd1ebe2-cc40-4fb6-97d5-205e4fb71418",
+            "__typename": "RVWebCommonActivity"
+          },
+          {
+            "cardURL": "https://riders.uber.com/trips/office-trip-003",
+            "description": "R$12.25",
+            "imageURL": {
+              "light": "https://d1a3f4spazzrp4.cloudfront.net/car-types/haloProductImages/v1.1/Motorcycle.png",
+              "dark": "https://d1a3f4spazzrp4.cloudfront.net/car-types/haloProductImages/v1.1/Motorcycle.png",
+              "__typename": "RVWebCommonColorModeImage"
+            },
+            "subtitle": "Jan 19 • 9:25 AM",
+            "title": "Jim and Pam's House",
+            "uuid": "a5cc29c7-2c9f-4373-9182-d507780751b9",
+            "__typename": "RVWebCommonActivity"
+          },
+          {
+            "cardURL": "https://riders.uber.com/trips/office-trip-004",
+            "description": "R$0.00 • Canceled",
+            "imageURL": {
+              "light": "https://d1a3f4spazzrp4.cloudfront.net/car-types/haloProductImages/v1.1/Motorcycle.png",
+              "dark": "https://d1a3f4spazzrp4.cloudfront.net/car-types/haloProductImages/v1.1/Motorcycle.png",
+              "__typename": "RVWebCommonColorModeImage"
+            },
+            "subtitle": "Jan 19 • 9:19 AM",
+            "title": "Dwight's Beet Farm",
+            "uuid": "2608cdbb-ee14-4752-9a31-2b7e7cb084c3",
+            "__typename": "RVWebCommonActivity"
+          },
+          {
+            "cardURL": "https://riders.uber.com/trips/office-trip-005",
+            "description": "R$0.00 • Canceled",
+            "imageURL": {
+              "light": "https://d1a3f4spazzrp4.cloudfront.net/car-types/haloProductImages/v1.1/Motorcycle.png",
+              "dark": "https://d1a3f4spazzrp4.cloudfront.net/car-types/haloProductImages/v1.1/Motorcycle.png",
+              "__typename": "RVWebCommonColorModeImage"
+            },
+            "subtitle": "Jan 19 • 9:15 AM",
+            "title": "Scranton Business Park",
+            "uuid": "7fecd5c2-ff22-4123-8666-fe286c38133d",
+            "__typename": "RVWebCommonActivity"
+          },
+          {
+            "cardURL": "https://riders.uber.com/trips/office-trip-006",
+            "description": "R$0.00 • Canceled",
+            "imageURL": {
+              "light": "https://d1a3f4spazzrp4.cloudfront.net/car-types/haloProductImages/v1.1/Motorcycle.png",
+              "dark": "https://d1a3f4spazzrp4.cloudfront.net/car-types/haloProductImages/v1.1/Motorcycle.png",
+              "__typename": "RVWebCommonColorModeImage"
+            },
+            "subtitle": "Jan 19 • 9:14 AM",
+            "title": "Poor Richard's Pub",
+            "uuid": "75a7a2c7-c283-4e3e-8bf8-5b6d5137a3cb",
+            "__typename": "RVWebCommonActivity"
+          },
+          {
+            "cardURL": "https://riders.uber.com/trips/office-trip-007",
+            "description": "R$18.95",
+            "imageURL": {
+              "light": "https://d1a3f4spazzrp4.cloudfront.net/car-types/haloProductImages/v1.1/Motorcycle.png",
+              "dark": "https://d1a3f4spazzrp4.cloudfront.net/car-types/haloProductImages/v1.1/Motorcycle.png",
+              "__typename": "RVWebCommonColorModeImage"
+            },
+            "subtitle": "Jan 19 • 9:13 AM",
+            "title": "Steamtown Mall",
+            "uuid": "99b8494f7911723-0237e008e003a8",
+            "__typename": "RVWebCommonActivity"
+          },
+          {
+            "cardURL": "https://riders.uber.com/trips/office-trip-008",
+            "description": "R$45.00",
+            "imageURL": {
+              "light": "https://d1a3f4spazzrp4.cloudfront.net/car-types/haloProductImages/v1.1/UberXL.png",
+              "dark": "https://d1a3f4spazzrp4.cloudfront.net/car-types/haloProductImages/v1.1/UberXL.png",
+              "__typename": "RVWebCommonColorModeImage"
+            },
+            "subtitle": "Jan 18 • 6:37 PM",
+            "title": "Nashua Branch Office",
+            "uuid": "abc12345-def67-8901-2345-67890abcdef12",
+            "__typename": "RVWebCommonActivity"
+          },
+          {
+            "cardURL": "https://riders.uber.com/trips/office-trip-009",
+            "description": "R$32.50",
+            "imageURL": {
+              "light": "https://d1a3f4spazzrp4.cloudfront.net/car-types/haloProductImages/v1.1/UberX.png",
+              "dark": "https://d1a3f4spazzrp4.cloudfront.net/car-types/haloProductImages/v1.1/UberX.png",
+              "__typename": "RVWebCommonColorModeImage"
+            },
+            "subtitle": "Jan 18 • 6:25 PM",
+            "title": "Benihana",
+            "uuid": "def67890-abc12-3456-7890-1234567890ab",
+            "__typename": "RVWebCommonActivity"
+          }
+        ],
+        "nextPageToken": "MjAyNi0wMS0xOVQxMjoxNDowMy41NTda",
+        "__typename": "RVWebCommonPastActivities"
+      },
+      "upcoming": {
+        "activities": [],
+        "__typename": "RVWebCommonUpcomingActivities"
+      },
+      "__typename": "RVWebCommonActivities"
+    }
+  }
+}
