@@ -1,0 +1,47 @@
+# Binaries
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go workspace
+go.work
+go.work.sum
+
+# Environment variables
+.env
+.env.local
+
+# IDE specific
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Test coverage
+*.coverprofile
+coverage.html
+coverage.out
+
+# Dependency directories
+vendor/
+
+# # Output data
+# *.csv
+# trips.json
+
+# Credentials and real user data
+.ue/
+credentials
+config.yaml
+*.backup
+
