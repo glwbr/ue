@@ -25,11 +25,11 @@ func GetConfigDir() (string, error) {
 }
 
 func getCredentialsDir() (string, error) {
-	usr, err := user.Current()
+	u, err := user.Current()
 	if err != nil {
 		return "", fmt.Errorf("failed to get home directory: %w", err)
 	}
-	return filepath.Join(usr.HomeDir, configDirName), nil
+	return filepath.Join(u.HomeDir, configDirName), nil
 }
 
 func getCredentialsPath() (string, error) {

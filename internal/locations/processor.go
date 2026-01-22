@@ -38,9 +38,8 @@ func (p *Processor) FindOrCreateLocation(address string, lat, lon float64) strin
 
 	now := time.Now()
 
-	locationIndex := p.findLocationByAddress(normalizedAddr)
-	if locationIndex != -1 {
-		loc := &p.registry.Locations[locationIndex]
+	if i := p.findLocationByAddress(normalizedAddr); i != -1 {
+		loc := &p.registry.Locations[i]
 		p.updateLocation(loc, normalizedAddr, lat, lon, now)
 		return loc.ID
 	}

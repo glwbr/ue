@@ -55,7 +55,7 @@ func Load(path ...string) (*Registry, error) {
 	return &reg, nil
 }
 
-func Save(registry *Registry, path ...string) error {
+func Save(reg *Registry, path ...string) error {
 	p := getDefaultPath()
 	if len(path) > 0 && path[0] != "" {
 		p = path[0]
@@ -66,7 +66,7 @@ func Save(registry *Registry, path ...string) error {
 		return fmt.Errorf("failed to create directory: %w", err)
 	}
 
-	data, err := json.MarshalIndent(registry, "", "  ")
+	data, err := json.MarshalIndent(reg, "", "  ")
 	if err != nil {
 		return fmt.Errorf("failed to marshal: %w", err)
 	}
