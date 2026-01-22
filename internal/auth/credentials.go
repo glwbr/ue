@@ -82,7 +82,7 @@ func Load() (*Credentials, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {
 		if os.IsNotExist(err) {
-			return nil, fmt.Errorf("no credentials found. Please run 'ue auth login'")
+			return nil, fmt.Errorf("no credentials found. Please run 'ue login'")
 		}
 		return nil, fmt.Errorf("failed to read credentials file: %w", err)
 	}

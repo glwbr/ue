@@ -56,7 +56,7 @@ func init() {
 func runTrips(cmd *cobra.Command, args []string) error {
 	creds, err := auth.Load()
 	if err != nil {
-		return fmt.Errorf("not logged in. Please run 'ue login': %w", err)
+		return err
 	}
 
 	startTime, endTime, err := datetime.ParseDateRange(fromDate, toDate, lastPeriod)
