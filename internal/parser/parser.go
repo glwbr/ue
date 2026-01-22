@@ -2,6 +2,7 @@ package parser
 
 import (
 	"errors"
+	"fmt"
 	"net/url"
 	"regexp"
 	"strconv"
@@ -12,10 +13,12 @@ import (
 var (
 	ErrInvalidTime     = errors.New("invalid time format")
 	ErrInvalidDuration = errors.New("invalid duration format")
+	ErrInvalidMapURL   = errors.New("invalid map URL")
+	ErrInvalidMarker   = errors.New("invalid marker format")
 )
 
 var (
-	CurrencyRegex = regexp.MustCompile(`^[A-Z]{3}\$([\d.]+)$`)
+	currencyRegex = regexp.MustCompile(`^[A-Z]{3}\$([\d.]+)$`)
 	durationRegex = regexp.MustCompile(`^(\d+)\s+minutes?$`)
 )
 
@@ -72,7 +75,7 @@ func Fare(s string) float64 {
 		return 0
 	}
 
-	matches := CurrencyRegex.FindStringSubmatch(s)
+	matches := currencyRegex.FindStringSubmatch(s)
 	if len(matches) < 2 {
 		val, err := strconv.ParseFloat(strings.TrimLeft(s, "R$"), 64)
 		if err != nil {
@@ -100,24 +103,24 @@ func Rating(s string) int {
 	return rating
 }
 
-func ExtractCoordinates(mapURL string, markerIndex int) (lat, lon float64) {
+func ExtractCoordinates(mapURL string, markerIndex int) (lat, lon float64, err error) {
 	if mapURL == "" {
-		return 0, 0
+		return 0, 0, ErrInvalidMapURL
 	}
 
 	parsedURL, err := url.Parse(mapURL)
 	if err != nil {
-		return 0, 0
+		return 0, 0, fmt.Errorf("failed to parse map URL: %w", err)
 	}
 
 	query := parsedURL.Query()
 	markers := query["marker"]
 	if len(markers) == 0 {
-		return 0, 0
+		return 0, 0, fmt.Errorf("no markers found in URL: %w", ErrInvalidMapURL)
 	}
 
 	if markerIndex >= len(markers) {
-		return 0, 0
+		return 0, 0, fmt.Errorf("marker index %d out of range (max %d): %w", markerIndex, len(markers)-1, ErrInvalidMarker)
 	}
 
 	marker := markers[markerIndex]
@@ -132,11 +135,18 @@ func ExtractCoordinates(mapURL string, markerIndex int) (lat, lon float64) {
 	lonMatches := lonRegex.FindStringSubmatch(marker)
 
 	if len(latMatches) < 2 || len(lonMatches) < 2 {
-		return 0, 0
+		return 0, 0, fmt.Errorf("failed to extract coordinates from marker: %w", ErrInvalidMarker)
 	}
 
-	lat, _ = strconv.ParseFloat(latMatches[1], 64)
-	lon, _ = strconv.ParseFloat(lonMatches[1], 64)
+	lat, err = strconv.ParseFloat(latMatches[1], 64)
+	if err != nil {
+		return 0, 0, fmt.Errorf("failed to parse latitude: %w", err)
+	}
 
-	return lat, lon
+	lon, err = strconv.ParseFloat(lonMatches[1], 64)
+	if err != nil {
+		return 0, 0, fmt.Errorf("failed to parse longitude: %w", err)
+	}
+
+	return lat, lon, nil
 }
