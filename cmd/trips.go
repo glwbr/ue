@@ -26,6 +26,8 @@ var (
 	lastPeriod string
 	output     string
 	summary    bool
+
+	subtitleRegex = regexp.MustCompile(`([A-Za-z]+ \d+) • (\d+:\d+ [AP]M)`)
 )
 
 var TripsCmd = &cobra.Command{
@@ -93,9 +95,8 @@ func runSummary(ctx context.Context, client *uberapi.Client, start, end time.Tim
 	fmt.Println("DATE\tTIME\tFARE\tDESTINATION")
 
 	for _, activity := range tripSummary.Activities {
-		parts := parseSubtitle(activity.Subtitle)
 		timeStr := ""
-		if len(parts) == 2 {
+		if parts := parseSubtitle(activity.Subtitle); len(parts) == 2 {
 			timeStr = parts[1]
 		}
 		fmt.Printf("%s\t%s\t%s\t%s\n", activity.Title, timeStr, activity.Description, truncate(activity.Title, 30))
@@ -171,8 +172,7 @@ func runFetch(ctx context.Context, client *uberapi.Client, start, end time.Time)
 }
 
 func parseSubtitle(subtitle string) []string {
-	re := regexp.MustCompile(`([A-Za-z]+ \d+) • (\d+:\d+ [AP]M)`)
-	matches := re.FindStringSubmatch(subtitle)
+	matches := subtitleRegex.FindStringSubmatch(subtitle)
 	if len(matches) < 3 {
 		return []string{subtitle, ""}
 	}
