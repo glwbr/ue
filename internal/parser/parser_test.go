@@ -169,6 +169,48 @@ func TestRating(t *testing.T) {
 	}
 }
 
+func TestDistance(t *testing.T) {
+	tests := []struct {
+		name  string
+		input string
+		want  float64
+	}{
+		{
+			name:  "kilometers",
+			input: "8.63",
+			want:  8.63,
+		},
+		{
+			name:  "miles",
+			input: "15.5",
+			want:  15.5,
+		},
+		{
+			name:  "zero",
+			input: "0",
+			want:  0,
+		},
+		{
+			name:  "empty string",
+			input: "",
+			want:  0,
+		},
+		{
+			name:  "invalid string",
+			input: "abc",
+			want:  0,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Distance(tt.input); got != tt.want {
+				t.Errorf("Distance() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestExtractCoordinates(t *testing.T) {
 	tests := []struct {
 		name        string
@@ -176,6 +218,7 @@ func TestExtractCoordinates(t *testing.T) {
 		markerIndex int
 		wantLat     float64
 		wantLon     float64
+		wantErr     bool
 	}{
 		{
 			name:        "valid map URL",
@@ -183,6 +226,7 @@ func TestExtractCoordinates(t *testing.T) {
 			markerIndex: 0,
 			wantLat:     -12.26071,
 			wantLon:     -38.9452,
+			wantErr:     false,
 		},
 		{
 			name:        "empty URL",
@@ -190,12 +234,16 @@ func TestExtractCoordinates(t *testing.T) {
 			markerIndex: 0,
 			wantLat:     0,
 			wantLon:     0,
+			wantErr:     true,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			lat, lon := ExtractCoordinates(tt.mapURL, tt.markerIndex)
+			lat, lon, err := ExtractCoordinates(tt.mapURL, tt.markerIndex)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("ExtractCoordinates() error = %v, wantErr %v", err, tt.wantErr)
+			}
 			if lat != tt.wantLat || lon != tt.wantLon {
 				t.Errorf("ExtractCoordinates() = (%v, %v), want (%v, %v)", lat, lon, tt.wantLat, tt.wantLon)
 			}

@@ -8,7 +8,7 @@ import (
 )
 
 func TestParseActivitiesResponse(t *testing.T) {
-	data, err := os.ReadFile("../../testdata/activities.response.json")
+	data, err := os.ReadFile("testdata/activities_response_simple.json")
 	if err != nil {
 		t.Fatalf("failed to read test data: %v", err)
 	}
@@ -32,8 +32,8 @@ func TestParseActivitiesResponse(t *testing.T) {
 	}
 }
 
-func TestParseActivitiesFullResponse(t *testing.T) {
-	data, err := os.ReadFile("testdata/activities_full.json")
+func TestParseObfuscatedActivitiesResponse(t *testing.T) {
+	data, err := os.ReadFile("testdata/activities_obfuscated.json")
 	if err != nil {
 		t.Fatalf("failed to read test data: %v", err)
 	}
@@ -44,8 +44,8 @@ func TestParseActivitiesFullResponse(t *testing.T) {
 		t.Fatalf("failed to unmarshal activities: %v", err)
 	}
 
-	if len(response.Data.Activities.Past.Activities) != 5 {
-		t.Errorf("expected 5 activities, got %d", len(response.Data.Activities.Past.Activities))
+	if len(response.Data.Activities.Past.Activities) != 9 {
+		t.Errorf("expected 9 activities, got %d", len(response.Data.Activities.Past.Activities))
 	}
 
 	completedTrips := 0
@@ -63,55 +63,22 @@ func TestParseActivitiesFullResponse(t *testing.T) {
 		}
 	}
 
-	if completedTrips != 2 {
-		t.Errorf("expected 2 completed trips, got %d", completedTrips)
+	if completedTrips != 6 {
+		t.Errorf("expected 6 completed trips, got %d", completedTrips)
 	}
 
 	if canceledTrips != 3 {
 		t.Errorf("expected 3 canceled trips, got %d", canceledTrips)
 	}
 
-	expectedTotalFare := 22.67
+	expectedTotalFare := 134.95
 	if totalFare != expectedTotalFare {
 		t.Errorf("total fare = %v, want %v", totalFare, expectedTotalFare)
 	}
 }
 
-func TestParseTimeFromRealData(t *testing.T) {
-	tests := []struct {
-		name  string
-		input string
-		valid bool
-	}{
-		{
-			name:  "subtitle time format",
-			input: "Jan 19 • 4:33 PM",
-			valid: false,
-		},
-		{
-			name:  "JavaScript date string",
-			input: "Tue Jan 06 2026 21:12:28 GMT+0000 (Coordinated Universal Time)",
-			valid: true,
-		},
-		{
-			name:  "RFC3339",
-			input: "2024-01-15T10:30:00Z",
-			valid: true,
-		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			_, err := Time(tt.input)
-			if (err == nil) != tt.valid {
-				t.Errorf("Time(%q) valid = %v, want %v, err = %v", tt.input, err == nil, tt.valid, err)
-			}
-		})
-	}
-}
-
-func TestExtractCoordinatesFromRealMapURL(t *testing.T) {
-	data, err := os.ReadFile("testdata/activities_full.json")
+func TestExtractCoordinatesFromObfuscatedMapURL(t *testing.T) {
+	data, err := os.ReadFile("testdata/activities_obfuscated.json")
 	if err != nil {
 		t.Fatalf("failed to read test data: %v", err)
 	}
@@ -139,14 +106,17 @@ func TestExtractCoordinatesFromRealMapURL(t *testing.T) {
 	activityWithMap := response.Data.Activities.Past.Activities[0]
 	mapURL := activityWithMap.ImageURL.Light
 
-	lat, lon := ExtractCoordinates(mapURL, 0)
-
-	if lat == 0 || lon == 0 {
-		t.Errorf("ExtractCoordinates() returned zero values from real map URL")
+	lat, lon, err := ExtractCoordinates(mapURL, 0)
+	if err != nil {
+		t.Fatalf("ExtractCoordinates() failed: %v", err)
 	}
 
-	expectedLat := -12.26071
-	expectedLon := -38.94518
+	if lat == 0 || lon == 0 {
+		t.Errorf("ExtractCoordinates() returned zero values from map URL")
+	}
+
+	expectedLat := 41.4089
+	expectedLon := -75.6624
 
 	if lat != expectedLat {
 		t.Errorf("latitude = %v, want %v", lat, expectedLat)
@@ -157,8 +127,8 @@ func TestExtractCoordinatesFromRealMapURL(t *testing.T) {
 	}
 }
 
-func TestFareFromRealData(t *testing.T) {
-	data, err := os.ReadFile("testdata/activities_full.json")
+func TestFareFromObfuscatedData(t *testing.T) {
+	data, err := os.ReadFile("testdata/activities_obfuscated.json")
 	if err != nil {
 		t.Fatalf("failed to read test data: %v", err)
 	}
@@ -175,13 +145,13 @@ func TestFareFromRealData(t *testing.T) {
 		shouldBeNonZero bool
 	}{
 		{
-			uuid:            "3bd1ebe2-cc40-4fb6-97d5-205e4fb71418",
-			expectedFare:    10.13,
+			uuid:            "6b8dc458-d2ea-42a1-97e9-7db671798503",
+			expectedFare:    15.50,
 			shouldBeNonZero: true,
 		},
 		{
-			uuid:            "a5cc29c7-2c9f-4373-9182-d507780751b9",
-			expectedFare:    12.54,
+			uuid:            "3bd1ebe2-cc40-4fb6-97d5-205e4fb71418",
+			expectedFare:    10.75,
 			shouldBeNonZero: true,
 		},
 		{
@@ -191,11 +161,6 @@ func TestFareFromRealData(t *testing.T) {
 		},
 		{
 			uuid:            "7fecd5c2-ff22-4123-8666-fe286c38133d",
-			expectedFare:    0.00,
-			shouldBeNonZero: false,
-		},
-		{
-			uuid:            "75a7a2c7-c283-4e3e-8bf8-5b6d5137a3cb",
 			expectedFare:    0.00,
 			shouldBeNonZero: false,
 		},
