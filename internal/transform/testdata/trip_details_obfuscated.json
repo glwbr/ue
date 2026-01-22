@@ -1,0 +1,50 @@
+{
+  "data": {
+    "getTrip": {
+      "trip": {
+        "beginTripTime": "2026-01-20T19:50:26Z",
+        "cityID": 1398,
+        "countryID": 25,
+        "disableCanceling": true,
+        "disableRating": false,
+        "disableResendReceipt": false,
+        "driver": "Michael Scott",
+        "dropoffTime": "2026-01-20T21:21:23Z",
+        "fare": "R$17.65",
+        "guest": "",
+        "isRidepoolTrip": false,
+        "isScheduledRide": false,
+        "isSurgeTrip": false,
+        "isUberReserve": false,
+        "jobUUID": "office-trip-001",
+        "marketplace": "personal_transport",
+        "paymentProfileUUID": "payment-michael-scott",
+        "showRating": true,
+        "status": "COMPLETED",
+        "uuid": "6b8dc458-d2ea-42a1-97e9-7db671798503",
+        "vehicleDisplayName": "",
+        "vehicleViewID": 20001027,
+        "waypoints": [
+          "1725 Slough Avenue, Dunder Mifflin, Scranton - PA, 18505",
+          "123 Kellum Court, Scranton - PA, 18508"
+        ],
+        "__typename": "Trip"
+      },
+      "mapURL": "https://static-maps.uber.com/map?width=580&height=267&marker=lat%3A41.4089%24lng%3A-75.6624%24icon%3Ahttps%3A%2F%2Fd1a3f4spazzrp4.cloudfront.net%2Fmaps%2Fhelix%2Fpickup.png&marker=lat%3A41.4120%24lng%3A-75.6580%24icon%3Ahttps%3A%2F%2Fd1a3f4spazzrp4.cloudfront.net%2Fmaps%2Fhelix%2Fdropoff.png&polyline=color%3A0xFF2DBAE4%24width%3A4&source=office-data&signature=office-sign-123",
+      "polandTaxiLicense": "",
+      "rating": "0",
+      "reviewer": "",
+      "receipt": {
+        "carYear": "2015",
+        "distance": "8.63",
+        "distanceLabel": "kilometers",
+        "duration": "21 minutes",
+        "vehicleType": "UberX",
+        "__typename": "Receipt"
+      },
+      "concierge": null,
+      "organization": null,
+      "__typename": "GetTripResult"
+    }
+  }
+}

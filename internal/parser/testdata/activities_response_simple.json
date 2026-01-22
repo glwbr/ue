@@ -1,0 +1,25 @@
+{
+    "data": {
+        "activities": {
+            "past": {
+                "activities": [
+                    {
+                        "uuid": "00000000-0000-0000-0000-000000000001",
+                        "title": "Rua Teste, 123",
+                        "subtitle": "Jan 7 • 6:01 PM",
+                        "__typename": "RVWebCommonActivity"
+                    },
+                    {
+                        "uuid": "00000000-0000-0000-0000-000000000002",
+                        "title": "Rua Teste, 456",
+                        "subtitle": "Dec 9 • 12:33 PM",
+                        "__typename": "RVWebCommonActivity"
+                    }
+                ],
+                "nextPageToken": "MjAyNS0xMi0wOVQxNTozMzoyNS45NDNa",
+                "__typename": "RVWebCommonPastActivities"
+            },
+            "__typename": "RVWebCommonActivities"
+        }
+    }
+}

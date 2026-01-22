@@ -1,0 +1,97 @@
+{
+  "locations": [
+    {
+      "id": "loc-1",
+      "canonicalAddress": "1725 slough avenue - scranton business park - scranton - pa 18505",
+      "addressVariants": [],
+      "avgLat": 41.4089,
+      "avgLon": -75.6624,
+      "visitCount": 55,
+      "firstSeen": "2026-01-21T00:05:01.086231134-05:00",
+      "lastSeen": "2026-01-21T01:31:24.107548385-05:00"
+    },
+    {
+      "id": "loc-2",
+      "canonicalAddress": "123 kellum court - scranton - pa 18508",
+      "addressVariants": [
+        "michael scott residence - 123 kellum court - scranton - pa 18508"
+      ],
+      "avgLat": 41.4120,
+      "avgLon": -75.6580,
+      "visitCount": 68,
+      "firstSeen": "2026-01-21T00:05:01.086236617-05:00",
+      "lastSeen": "2026-01-21T01:31:24.107552685-05:00"
+    },
+    {
+      "id": "loc-3",
+      "canonicalAddress": "5561 moseley road - schrute farms - pa 18360",
+      "addressVariants": [],
+      "avgLat": 41.4500,
+      "avgLon": -75.6200,
+      "visitCount": 23,
+      "firstSeen": "2026-01-21T00:05:05.082050492-05:00",
+      "lastSeen": "2026-01-21T00:09:58.627413446-05:00"
+    },
+    {
+      "id": "loc-4",
+      "canonicalAddress": "444 linden street - scranton - pa 18504",
+      "addressVariants": [],
+      "avgLat": 41.4050,
+      "avgLon": -75.6700,
+      "visitCount": 2,
+      "firstSeen": "2026-01-21T00:05:12.131790745-05:00",
+      "lastSeen": "2026-01-21T00:05:55.263957664-05:00"
+    },
+    {
+      "id": "loc-5",
+      "canonicalAddress": "136 spruce street - scranton - pa 18503",
+      "addressVariants": [],
+      "avgLat": 41.4030,
+      "avgLon": -75.6600,
+      "visitCount": 2,
+      "firstSeen": "2026-01-21T00:05:57.495804612-05:00",
+      "lastSeen": "2026-01-21T00:05:58.007704188-05:00"
+    },
+    {
+      "id": "loc-6",
+      "canonicalAddress": "5 technology way - nashua - nh 03063",
+      "addressVariants": [],
+      "avgLat": 42.7650,
+      "avgLon": -71.4600,
+      "visitCount": 1,
+      "firstSeen": "2026-01-21T00:05:58.839141209-05:00",
+      "lastSeen": "2026-01-21T00:05:58.839141209-05:00"
+    },
+    {
+      "id": "loc-7",
+      "canonicalAddress": "123 lake road - scranton - pa 18510",
+      "addressVariants": [],
+      "avgLat": 41.4400,
+      "avgLon": -75.6500,
+      "visitCount": 1,
+      "firstSeen": "2026-01-21T00:06:01.552353994-05:00",
+      "lastSeen": "2026-01-21T00:06:01.552353994-05:00"
+    },
+    {
+      "id": "loc-8",
+      "canonicalAddress": "300 mall drive - steamtown mall - scranton - pa 18508",
+      "addressVariants": [],
+      "avgLat": 41.4150,
+      "avgLon": -75.6550,
+      "visitCount": 1,
+      "firstSeen": "2026-01-21T00:06:09.036347637-05:00",
+      "lastSeen": "2026-01-21T00:06:09.036347637-05:00"
+    },
+    {
+      "id": "loc-9",
+      "canonicalAddress": "1081 albemarle road - charlotte - nc 28206",
+      "addressVariants": [],
+      "avgLat": 35.2000,
+      "avgLon": -80.8500,
+      "visitCount": 3,
+      "firstSeen": "2026-01-21T00:06:15.916182-05:00",
+      "lastSeen": "2026-01-21T00:06:17.463828777-05:00"
+    }
+  ],
+  "nextID": 10
+}
