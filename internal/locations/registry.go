@@ -3,6 +3,7 @@ package locations
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"os"
 	"path/filepath"
 	"time"
@@ -42,6 +43,7 @@ func Load(path ...string) (*Registry, error) {
 
 	data, err := os.ReadFile(p)
 	if os.IsNotExist(err) {
+		slog.Info("Locations registry not found, creating new", "path", p)
 		return &Registry{Locations: []Location{}, NextID: 1}, nil
 	}
 	if err != nil {
@@ -52,6 +54,8 @@ func Load(path ...string) (*Registry, error) {
 	if err := json.Unmarshal(data, &reg); err != nil {
 		return nil, fmt.Errorf("failed to unmarshal: %w", err)
 	}
+
+	slog.Info("Loaded locations registry", "path", p, "count", len(reg.Locations))
 	return &reg, nil
 }
 
@@ -71,5 +75,10 @@ func Save(reg *Registry, path ...string) error {
 		return fmt.Errorf("failed to marshal: %w", err)
 	}
 
-	return os.WriteFile(p, data, 0644)
+	if err := os.WriteFile(p, data, 0644); err != nil {
+		return err
+	}
+
+	slog.Info("Saved locations registry", "path", p, "count", len(reg.Locations))
+	return nil
 }

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log/slog"
 	"os"
+	"path/filepath"
 	"regexp"
 	"time"
 
@@ -75,19 +76,26 @@ func runTrips(cmd *cobra.Command, args []string) error {
 }
 
 func runSummary(ctx context.Context, client *uberapi.Client, start, end time.Time) error {
+	slog.Info("Fetching trip summary", "date_range", fmt.Sprintf("%s to %s", start.Format("2006-01-02"), end.Format("2006-01-02")))
+
 	activities, _, err := client.GetActivities(ctx, start.Unix()*1000, end.Unix()*1000, "")
 	if err != nil {
 		return fmt.Errorf("failed to fetch activities: %w", err)
 	}
 
+	tripCount := len(activities.Data.Activities.Past.Activities)
+	slog.Info("Parsing trip summary", "count", tripCount)
+
 	tripSummary := trips.TripSummary{
-		Count:      len(activities.Data.Activities.Past.Activities),
+		Count:      tripCount,
 		Activities: activities.Data.Activities.Past.Activities,
 	}
 
 	for _, a := range tripSummary.Activities {
 		tripSummary.TotalFare += parser.Fare(a.Description)
 	}
+
+	slog.Info("Summary calculated", "total_trips", tripSummary.Count, "total_fare", fmt.Sprintf("%.2f", tripSummary.TotalFare))
 
 	fmt.Printf("Found %d trips between %s and %s\n", tripSummary.Count, start.Format("2006-01-02"), end.Format("2006-01-02"))
 	fmt.Printf("Total fare: %.2f\n", tripSummary.TotalFare)
@@ -106,10 +114,14 @@ func runSummary(ctx context.Context, client *uberapi.Client, start, end time.Tim
 }
 
 func runFetch(ctx context.Context, client *uberapi.Client, start, end time.Time) error {
+	slog.Info("Starting trip fetch", "date_range", fmt.Sprintf("%s to %s", start.Format("2006-01-02"), end.Format("2006-01-02")))
+
 	registry, err := locations.Load()
 	if err != nil {
 		return fmt.Errorf("failed to load locations: %w", err)
 	}
+
+	slog.Info("Locations loaded", "count", len(registry.Locations))
 
 	lp := locations.NewProcessor(registry)
 
@@ -125,9 +137,17 @@ func runFetch(ctx context.Context, client *uberapi.Client, start, end time.Time)
 			return fmt.Errorf("failed to fetch activities: %w", err)
 		}
 
-		slog.Info("Found trips", "count", len(activities.Data.Activities.Past.Activities))
+		activitiesList := activities.Data.Activities.Past.Activities
+		slog.Info("Parsing activities", "count", len(activitiesList))
 
-		for _, activity := range activities.Data.Activities.Past.Activities {
+		for i, activity := range activitiesList {
+			processedInPage := i + 1
+			currentTotal := len(allTrips) + processedInPage
+			estimatedTotal := len(allTrips) + len(activitiesList)
+			percentage := float64(currentTotal*100) / float64(estimatedTotal)
+
+			slog.Info("Processing trip", "current", currentTotal, "total_estimate", estimatedTotal, "progress", fmt.Sprintf("%.0f%%", percentage))
+
 			slog.Debug("Fetching trip details", "uuid", activity.UUID)
 
 			tripResponse, err := client.GetTrip(ctx, activity.UUID)
@@ -135,6 +155,8 @@ func runFetch(ctx context.Context, client *uberapi.Client, start, end time.Time)
 				slog.Warn("Failed to fetch trip details", "uuid", activity.UUID, "error", err)
 				continue
 			}
+
+			slog.Debug("Transforming trip", "uuid", activity.UUID)
 
 			trip, err := transform.ProcessTrip(tripResponse, lp)
 			if err != nil {
@@ -155,13 +177,21 @@ func runFetch(ctx context.Context, client *uberapi.Client, start, end time.Time)
 		time.Sleep(100 * time.Millisecond)
 	}
 
-	slog.Info("Trips fetched successfully", "total", len(allTrips), "pages", pageCount)
+	slog.Info("Trips processed successfully", "total", len(allTrips), "pages", pageCount)
 
 	if err := locations.Save(lp.Registry()); err != nil {
 		slog.Warn("Failed to save locations", "error", err)
 	} else {
-		slog.Info("Locations saved", "count", len(lp.Registry().Locations))
+		configDir, err := auth.GetConfigDir()
+		if err != nil {
+			slog.Info("Locations saved", "count", len(lp.Registry().Locations))
+		} else {
+			path := filepath.Join(configDir, "locations.json")
+			slog.Info("Locations saved", "count", len(lp.Registry().Locations), "path", path)
+		}
 	}
+
+	slog.Info("Formatting output", "format", output, "destination", "stdout")
 
 	f, err := format.GetFormatter(output)
 	if err != nil {
