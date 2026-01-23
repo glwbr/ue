@@ -21,10 +21,6 @@ type Credentials struct {
 }
 
 func GetConfigDir() (string, error) {
-	return getCredentialsDir()
-}
-
-func getCredentialsDir() (string, error) {
 	u, err := user.Current()
 	if err != nil {
 		return "", fmt.Errorf("failed to get home directory: %w", err)
@@ -33,7 +29,7 @@ func getCredentialsDir() (string, error) {
 }
 
 func getCredentialsPath() (string, error) {
-	dir, err := getCredentialsDir()
+	dir, err := GetConfigDir()
 	if err != nil {
 		return "", err
 	}
@@ -41,7 +37,7 @@ func getCredentialsPath() (string, error) {
 }
 
 func Save(cookie, email string) error {
-	dir, err := getCredentialsDir()
+	dir, err := GetConfigDir()
 	if err != nil {
 		return err
 	}
